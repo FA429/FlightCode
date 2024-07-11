@@ -1,0 +1,55 @@
+﻿@model IEnumerable<FrontEndMVC.Models.Flight>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Category View</title>
+</head>
+<body>
+    <div class="bg-white shadow-lg rounded-lg p-6 mt-6">
+        <div class="flex justify-between mb-2">
+            <h2 class="text-2xl font-semibold mb-4">Flight</h2>
+            <a asp-action="Create" asp-controller="Flight" class="text-lg font-semibold bg-blue-500 text-white py-1 px-3 m-3 rounded">Create New Flight</a>
+        </div>
+
+        <!-- Search Bar -->
+        <form method="get" asp-action="SearchFlight" asp-controller="Flight" class="mb-4">
+            <div class="flex space-x-2 items-center">
+                <input type="text" name="from" class="border border-gray-300 rounded py-2 px-4" placeholder="Search From" value="@ViewData["CurrentFilterFrom"]" />
+                <input type="text" name="to" class="border border-gray-300 rounded py-2 px-4" placeholder="Search To" value="@ViewData["CurrentFilterTo"]" />
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Search</button>
+            </div>
+        </form>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="py-2 px-4 border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">From</th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">To</th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">Arrival</th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">Departuer</th>
+                        <th class="py-2 px-4 border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="py-2 px-4 border-b border-gray-200">@item.From</td>
+                            <td class="py-2 px-4 border-b border-gray-200">@item.To</td>
+                            <td class="py-2 px-4 border-b border-gray-200">@item.Arrival</td>
+                            <td class="py-2 px-4 border-b border-gray-200">@item.Departuer</td>
+                            <td class="py-2 px-4 border-b border-gray-200">
+                                <button class="bg-blue-500 text-white py-1 px-3 rounded text-sm"><a asp-action="Show" asp-controller="Flight" asp-route-id="@item.Id">Show</a></button>
+                                <button class="bg-green-500 text-white py-1 px-3 rounded text-sm"><a asp-action="Edit" asp-controller="Flight" asp-route-id="@item.Id">Edit</a></button>
+                                <button class="bg-red-500 text-white py-1 px-3 rounded text-sm"><a asp-action="Delete" asp-controller="Flight" asp-route-id="@item.Id">Delete</a></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
